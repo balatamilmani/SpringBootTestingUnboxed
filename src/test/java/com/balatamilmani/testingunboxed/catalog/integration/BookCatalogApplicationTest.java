@@ -47,4 +47,12 @@ class BookCatalogApplicationTest {
 				.andExpect(jsonPath("$[0].title").value("Spring Boot Test"))
 				.andExpect(jsonPath("$[1].title").value("REST APIs with Spring"));
 	}
+
+	@Test
+	void applicationServesBookById() throws Exception {
+		this.mvc.perform(get("/api/books/{id}", 1L))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.title").value("Spring Boot Test"))
+				.andExpect(jsonPath("$.author").value("Asha Rao"));
+	}
 }
